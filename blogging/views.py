@@ -4,6 +4,7 @@ from django.template import loader
 from blogging.models import Post
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+
 # Create your views here.
 
 
@@ -24,12 +25,15 @@ def stub_view(request, *args, **kwargs):
 #     template = loader.get_template('blogging/list.html')
 #     context = {'posts': posts}
 #     body = template.render(context)
-    # return render(request, 'list.html', context)
-    # return HttpResponse(body, content_type="text/html")
+# return render(request, 'list.html', context)
+# return HttpResponse(body, content_type="text/html")
+
 
 class BloggingListView(ListView):
-    queryset = Post.objects.exclude(published_date__exact=None).order_by('-published_date')
-    template_name = 'blogging/list.html'
+    queryset = Post.objects.exclude(published_date__exact=None).order_by(
+        "-published_date"
+    )
+    template_name = "blogging/list.html"
 
 
 # def list_view(request):
@@ -41,7 +45,7 @@ class BloggingListView(ListView):
 
 class BloggingDetailView(DetailView):
     queryset = Post.objects.exclude(published_date__exact=None)
-    template_name = 'blogging/detail.html'
+    template_name = "blogging/detail.html"
 
 
 # def detail_view(request, post_id):
